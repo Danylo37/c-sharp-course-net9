@@ -4,25 +4,35 @@ class Program
 {
     static void Main(string[] args)
     {
-        int[] arr = { 1, 2, 3, 4, 5 };
-
-        Index lastIdx = new Index(1, true);
-        // Index lastIdx = ^1;
-
-        Console.WriteLine($"value: {lastIdx.Value}, isFromEnd: {lastIdx.IsFromEnd}");
-
-        Console.WriteLine(arr[lastIdx]);
-
-        // Range range = new Range(^4, ^1);
-        // Range range = ^4..^1;
-
-        int[] arr2 = arr[..4].Reverse().ToArray();
-        // int[] arr2 = arr[1..4].Reverse().ToArray();
-        // int[] arr2 = arr[1..].Reverse().ToArray();
-
-        foreach (int i in arr2)
+        int[,] matrix =
         {
-            Console.Write(i + " ");
+            {132, 24, 3},
+            {4, 532, 63},
+            {721, 82, 912}
+        };
+
+        foreach (var item in matrix)
+        {
+            Console.Write(item + " ");
         }
+
+        Console.WriteLine();
+        Console.WriteLine();
+
+        Console.WriteLine(" \t0\t1\t2");
+        for (int row = 0; row < matrix.GetLength(0); row++)
+        {
+            Console.Write($"{row}\t");
+            for (int col = 0; col < matrix.GetLength(1); col++)
+            {
+                Console.Write(matrix[row, col] + "\t");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine();
+
+        Console.WriteLine("Dimensions: " + matrix.Rank);
+        Console.WriteLine("Length: " + matrix.Length);
     }
 }
