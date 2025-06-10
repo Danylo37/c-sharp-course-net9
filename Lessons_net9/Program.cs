@@ -2,37 +2,36 @@
 
 class Program
 {
-    static void PrintArray(in int[] arr, in int index = 0)
-    {
-        if (index < arr.Length)
-        {
-            Console.WriteLine(arr[index]);
-            PrintArray(arr, index+1);
-        }
-    }
-
-    static int Sum(in int[] arr, in int index = 0)
-    {
-        if (index >= arr.Length)
-            return 0;
-        
-        return arr[index] + Sum(arr, index + 1);
-    }
-
-    static int SumNum(in int num)
-    {
-        if (num == 0)
-            return 0;
-        
-        return num%10 + SumNum(num/10);
-    }
-    
     static void Main(string[] args)
     {
-        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        PrintArray(arr);
+        byte agression = 1;
+
+        byte democracyModifier = 2;
+
+        try
+        {
+            agression = checked((byte)(agression - democracyModifier));
+            Console.WriteLine(agression);
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Arithmetic overflow");
+        }
+
+        double a = 1.0 / 0.0;
+        double b = 0.0 / 0.0;
+        double c = Double.MaxValue + Double.MaxValue;
         
-        Console.WriteLine(Sum(arr));
-        Console.WriteLine(SumNum(123456789));
+        Console.WriteLine($"a: {a}, b: {b}, c: {c}");
+        
+        Console.WriteLine("a is infinity? " + double.IsInfinity(a));
+        Console.WriteLine("b is NaN? " + double.IsNaN(b));
+        Console.WriteLine("c is infinity? " + double.IsInfinity(c));
+
+        decimal x = decimal.MaxValue;
+        decimal y = decimal.MaxValue;
+        decimal z = unchecked(x + y);   // still error
+        
+        Console.WriteLine(z);
     }
 }
