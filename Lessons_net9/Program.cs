@@ -4,34 +4,26 @@ class Program
 {
     static void Main(string[] args)
     {
-        byte agression = 1;
-
-        byte democracyModifier = 2;
-
-        try
-        {
-            agression = checked((byte)(agression - democracyModifier));
-            Console.WriteLine(agression);
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Arithmetic overflow");
-        }
-
-        double a = 1.0 / 0.0;
-        double b = 0.0 / 0.0;
-        double c = Double.MaxValue + Double.MaxValue;
+        Nullable<int> a = null;
         
-        Console.WriteLine($"a: {a}, b: {b}, c: {c}");
+        int? b = null;
         
-        Console.WriteLine("a is infinity? " + double.IsInfinity(a));
-        Console.WriteLine("b is NaN? " + double.IsNaN(b));
-        Console.WriteLine("c is infinity? " + double.IsInfinity(c));
-
-        decimal x = decimal.MaxValue;
-        decimal y = decimal.MaxValue;
-        decimal z = unchecked(x + y);   // still error
+        Console.WriteLine(a);
         
-        Console.WriteLine(z);
+        Console.WriteLine(a == null);
+        
+        Console.WriteLine(a.HasValue);
+        
+        Console.WriteLine(a.GetValueOrDefault());
+        
+        Console.WriteLine(a.GetValueOrDefault(5));
+        
+        Console.WriteLine(a ?? 10);
+        
+        // Console.WriteLine(i.Value);     // InvalidOperationException
+        
+        Console.WriteLine((a + 5).HasValue);
+        
+        Console.WriteLine(a == 5);
     }
 }
