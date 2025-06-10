@@ -4,48 +4,22 @@ namespace Lessons_net9;
 
 class Program
 {
-    struct MyStruct
+    static int Sum(params int[] numbers)
     {
-        public decimal a;
-        public decimal b;
-        public decimal c;
-        public decimal d;
-        public decimal e;
-        public decimal f;
-    }
-
-    static void Foo(MyStruct value)
-    {
+        int sum = 0;
         
-    }
+        foreach (int number in numbers)
+        {
+            sum += number;
+        }
 
-    static void Bar(in MyStruct value)
-    {
-        // value.a = 5;     // error, value is read-only
+        return sum;
     }
     
     static void Main(string[] args)
     {
-        MyStruct a = new MyStruct();
-
-        Stopwatch sw = Stopwatch.StartNew();
-        
-        for (int i = 0; i < int.MaxValue; i++)
-        {
-            Foo(a);
-        }
-        
-        sw.Stop();
-        Console.WriteLine("Foo: " + sw.ElapsedMilliseconds + " milliseconds");  // Foo: 6199 milliseconds
-        
-        sw.Restart();
-        
-        for (int i = 0; i < int.MaxValue; i++)
-        {
-            Bar(a);
-        }
-        
-        sw.Stop();
-        Console.WriteLine("Bar: " + sw.ElapsedMilliseconds + " milliseconds");  // Bar: 3817 milliseconds
+        Console.WriteLine(Sum(3, 7));
+        Console.WriteLine(Sum(5, 7, 3));
+        Console.WriteLine(Sum(5, 7, 12, 11));
     }
 }
