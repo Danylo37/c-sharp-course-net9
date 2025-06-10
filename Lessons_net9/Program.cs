@@ -1,37 +1,38 @@
-﻿using System.Diagnostics;
-
-namespace Lessons_net9;
+﻿namespace Lessons_net9;
 
 class Program
 {
-    static int Sum(params int[] numbers)
+    static void PrintArray(in int[] arr, in int index = 0)
     {
-        int sum = 0;
-        
-        foreach (int number in numbers)
+        if (index < arr.Length)
         {
-            sum += number;
+            Console.WriteLine(arr[index]);
+            PrintArray(arr, index+1);
         }
-
-        return sum;
     }
 
-    static void Test(int a, int b = 2, int c = 5)
+    static int Sum(in int[] arr, in int index = 0)
     {
-        Console.WriteLine(Sum(a, b, c));
+        if (index >= arr.Length)
+            return 0;
+        
+        return arr[index] + Sum(arr, index + 1);
+    }
+
+    static int SumNum(in int num)
+    {
+        if (num == 0)
+            return 0;
+        
+        return num%10 + SumNum(num/10);
     }
     
     static void Main(string[] args)
     {
-        Console.WriteLine(Sum(3, 7));
-        Console.WriteLine(Sum(5, 7, 3));
-        Console.WriteLine(Sum(5, 7, 12, 11));
+        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        PrintArray(arr);
         
-        Console.WriteLine();
-        
-        Test(1, 3, 6);
-        Test(1, 3);
-        Test(1);
-        Test(1, c:4);
+        Console.WriteLine(Sum(arr));
+        Console.WriteLine(SumNum(123456789));
     }
 }
