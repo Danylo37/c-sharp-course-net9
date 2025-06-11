@@ -2,24 +2,44 @@
 
 class Program
 {
+    private string test;
+
+    public void SetTest(string test)
+    {
+        this.test = test;
+    }
+
+    public string GetTest()
+    {
+        return test;
+    }
+
     private string test1;
-    private string test2;
-    private string test3;
 
-    public Program(string test1, string test2)
+    public string Test1
     {
-        this.test1 = test1;
-        this.test2 = test2;
+        get
+        {
+            return test1;
+        }
+        set
+        {
+            test1 = value;
+        }
     }
 
-    public Program(string test1, string test2, string test3) : this(test1, test2)
-    {
-        this.test3 = test3;
-    }
+    public string Test2 { get; set; }
 
     static void Main(string[] args)
     {
-        var p1 = new Program("test1", "test2");
-        var p2 = new Program("test1", "test2", "test3");
+        var p = new Program();
+
+        p.Test1 = "test1";
+
+        Console.WriteLine(p.Test1);
+
+        p.Test2 = "test2";
+
+        Console.WriteLine(p.Test2);
     }
 }
