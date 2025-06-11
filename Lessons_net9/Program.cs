@@ -1,28 +1,40 @@
 ﻿namespace Lessons_net9;
 
-class Program
+static class StaticClass
 {
-    static Program()
+    private static string variable;
+
+    static StaticClass()
     {
         Console.WriteLine("Static constructor");
     }
 
-    public Program()
-    {
-        Console.WriteLine("Constructor");
-    }
-
-    static void Foo()
+    public static void Foo()
     {
         Console.WriteLine("Foo");
     }
-    
+
+    public static string Variable
+    {
+        get
+        {
+            return variable;
+        }
+        set
+        {
+            variable = value;
+        }
+    }
+}
+
+class Program
+{
     static void Main(string[] args)
     {
-        Foo();
+        StaticClass.Foo();
 
-        new Program();
-        new Program();
-        new Program();
+        StaticClass.Variable = "Hello World!";
+
+        Console.WriteLine(StaticClass.Variable);
     }
 }
