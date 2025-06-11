@@ -1,40 +1,14 @@
 ﻿namespace Lessons_net9;
-
-static class StaticClass
-{
-    private static string variable;
-
-    static StaticClass()
-    {
-        Console.WriteLine("Static constructor");
-    }
-
-    public static void Foo()
-    {
-        Console.WriteLine("Foo");
-    }
-
-    public static string Variable
-    {
-        get
-        {
-            return variable;
-        }
-        set
-        {
-            variable = value;
-        }
-    }
-}
+using Lesson_MyExtensions;
 
 class Program
 {
     static void Main(string[] args)
     {
-        StaticClass.Foo();
+        DateTime currentDateTime = DateTime.Now;
 
-        StaticClass.Variable = "Hello World!";
-
-        Console.WriteLine(StaticClass.Variable);
+        currentDateTime.Print();
+        Console.WriteLine(currentDateTime.IsDayOfWeek(DayOfWeek.Monday));
+        Console.WriteLine(currentDateTime.IsDayOfWeek(DayOfWeek.Wednesday));
     }
 }
