@@ -1,14 +1,29 @@
 ﻿namespace Lessons_net9;
-using Lesson_MyExtensions;
 
 class Program
 {
     static void Main(string[] args)
     {
-        DateTime currentDateTime = DateTime.Now;
+        var t = new Test(test: "test");
 
-        currentDateTime.Print();
-        Console.WriteLine(currentDateTime.IsDayOfWeek(DayOfWeek.Monday));
-        Console.WriteLine(currentDateTime.IsDayOfWeek(DayOfWeek.Wednesday));
+        t.PrintTest();
+    }
+}
+
+partial class Test
+{
+    public string test;
+
+    public Test(string test)
+    {
+        this.test = test;
+    }
+}
+
+partial class Test
+{
+    public void PrintTest()
+    {
+        Console.WriteLine(test);
     }
 }
