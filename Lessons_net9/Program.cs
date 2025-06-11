@@ -2,62 +2,24 @@
 
 class Program
 {
-    enum DayOfWeek : byte
+    private string test1;
+    private string test2;
+    private string test3;
+
+    public Program(string test1, string test2)
     {
-        Monday = 1,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday,
-        Sunday
+        this.test1 = test1;
+        this.test2 = test2;
     }
 
-    static DayOfWeek GetNextDay(DayOfWeek day)
+    public Program(string test1, string test2, string test3) : this(test1, test2)
     {
-        if (day < DayOfWeek.Sunday)
-        {
-            return day + 1;
-        }
-
-        return DayOfWeek.Monday;
+        this.test3 = test3;
     }
 
     static void Main(string[] args)
     {
-        var mon = DayOfWeek.Monday;
-
-        Console.WriteLine(mon);
-        Console.WriteLine((DayOfWeek)1);
-        Console.WriteLine((int)mon);
-        Console.WriteLine(mon.GetType());
-        Console.WriteLine(Enum.GetUnderlyingType(typeof(DayOfWeek)));
-
-        Console.WriteLine(GetNextDay(mon));
-
-        DayOfWeek day;
-        byte value = 55;
-
-        // if (Enum.IsDefined(typeof(DayOfWeek), value))
-        // {
-        //     day = (DayOfWeek)value;
-        // }
-        // else
-        // {
-        //     throw new Exception("Invalid DayOfWeek value");
-        // }
-
-        var values = Enum.GetValues(typeof(DayOfWeek));
-
-        Console.WriteLine();
-
-        foreach (DayOfWeek dayOfWeek in values)
-        {
-            Console.WriteLine(dayOfWeek);
-        }
-
-        string str = Console.ReadLine();
-        DayOfWeek d = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), str, ignoreCase: true);
-        Console.WriteLine(d);
+        var p1 = new Program("test1", "test2");
+        var p2 = new Program("test1", "test2", "test3");
     }
 }
