@@ -1,71 +1,81 @@
 ﻿namespace Lessons_net9;
 
-public interface IWeapon
+internal interface IFirstInterface
 {
-    void Fire();
+    void Action();
 }
 
-public interface IThrowingWeapon : IWeapon
+internal interface ISecondInterface
 {
-    void Throw();
+    void Action();
 }
 
-public class Gun : IWeapon 
+public class MyClass : IFirstInterface, ISecondInterface
 {
-    public void Fire()
+    public void Action()
     {
-        Console.WriteLine($"{GetType().Name} Pif paf");
+        Console.WriteLine("MyClass Action");
     }
 }
 
-public class LaserGun : IWeapon
+public class MyOtherClass : IFirstInterface, ISecondInterface
 {
-    public void Fire()
+    void IFirstInterface.Action()
     {
-        Console.WriteLine($"{GetType().Name} Pew pew");
-    }
-}
-
-public class Knife : IThrowingWeapon 
-{
-    public void Fire()
-    {
-        Console.WriteLine($"{GetType().Name} Shink shink");
+        Console.WriteLine("MyOtherClass IFirstInterface Action");
     }
 
-    public void Throw()
+    void ISecondInterface.Action()
     {
-        Console.WriteLine($"{GetType().Name} Pshiuuu");
-    }
-}
-
-public class Player
-{ 
-    public void Fire(IWeapon weapon)
-    {
-        weapon.Fire();
-    }
-
-    public void Throw(IThrowingWeapon weapon)
-    {
-        weapon.Throw();
+        Console.WriteLine("MyOtherClass ISecondInterface Action");
     }
 }
 
 internal static class Program
 {
+    private static void Foo(IFirstInterface firstInterface)
+    {
+        firstInterface.Action();
+    }
+
+    private static void Bar(ISecondInterface secondInterface)
+    {
+        secondInterface.Action();
+    }
+
     private static void Main()
     {
-        var p = new Player();
+        MyClass myClass = new MyClass();
+        myClass.Action();
 
-        IWeapon[] inventory = [new Gun(), new LaserGun(), new Knife()];
+        Foo(myClass);
+        Bar(myClass);
 
-        foreach (var item in inventory)
+        Console.WriteLine();
+        
+        MyOtherClass myOtherClass = new MyOtherClass();
+        // myOtherClass.Action();   // error
+
+        Foo(myOtherClass);
+        Bar(myOtherClass);
+
+        Console.WriteLine();
+        
+        ((IFirstInterface)myOtherClass).Action();
+        ((ISecondInterface)myOtherClass).Action();
+        
+        Console.WriteLine();
+        
+        object obj = new object();
+
+        if (obj is IFirstInterface iFirstInterface)
         {
-            p.Fire(item);
-            Console.WriteLine();
+            Foo(iFirstInterface);
         }
         
-        p.Throw(new Knife());
+        if (myOtherClass is IFirstInterface iFirstInterface1)
+        {
+            Foo(iFirstInterface1);
+        }
     }
 }
