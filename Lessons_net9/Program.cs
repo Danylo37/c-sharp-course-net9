@@ -1,46 +1,65 @@
 ﻿namespace Lessons_net9;
 
-class Person
+class Point2D
 {
-    public Person()
+    public Point2D(int x, int y)
     {
-        Console.WriteLine("Person constructor");
+        Console.WriteLine("Point2D constructor");
+
+        X = x;
+        Y = y;
     }
 
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 
-    public void PrintName()
+    public void Print()
     {
-        Console.WriteLine(FirstName);
+        Console.WriteLine("X:\t" + X);
+        Console.WriteLine("Y:\t" + Y);
     }
 }
 
-class Student : Person
+class Point3D : Point2D
 {
-    public Student()
+    public Point3D(int x, int y, int z) : base(x,y)
     {
-        Console.WriteLine("Student constructor");
+        Console.WriteLine("Point3D constructor without name");
+
+        Z = z;
     }
 
-    public void PrintFullName()
+    public Point3D(int x, int y, int z, string name) : this(x, y, z)
     {
-        Console.WriteLine(FirstName + " " + LastName);
+        Console.WriteLine("Point3D constructor with name");
+
+        Name = name;
+    }
+
+    public string Name { get; set; }
+
+    public int Z { get; set; }
+
+    public void Print()
+    {
+        Console.WriteLine("Name:\t" + Name);
+        base.Print();
+        Console.WriteLine("Z:\t" + Z);
     }
 }
-
 
 class Program
 {
     static void Main(string[] args)
     {
-        var st = new Student
-        {
-            FirstName = "John",
-            LastName = "Doe"
-        };
+        var p1 = new Point3D(1, 2, 3);
 
-        st.PrintName();
-        st.PrintFullName();
+        Console.WriteLine();
+
+        var p2 = new Point3D(0, 0, 0, "Zero");
+
+        Console.WriteLine();
+
+        p2.Print();
     }
 }
