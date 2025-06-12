@@ -1,19 +1,33 @@
 ﻿namespace Lessons_net9;
 
-class A
+class Car
 {
-    public int publicField;
-    private int privateField;
-    protected int protectedField;
+    protected void StartEngine()
+    {
+        Console.WriteLine("Starting engine");
+    }
+
+    public virtual void Drive()
+    {
+        StartEngine();
+        Console.WriteLine("Driving");
+    }
 }
 
-class B : A
+class SportCar : Car
 {
-    public B ()
+    public override void Drive()
     {
-        publicField = 1;
-        // privateField = 1;
-        protectedField = 1;
+        StartEngine();
+        Console.WriteLine("Driving fast");
+    }
+}
+
+class Person
+{
+    public void Drive(Car car)
+    {
+        car.Drive();
     }
 }
 
@@ -21,8 +35,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        new A().publicField = 1;
-        // new A().privateField = 1;
-        // new A().protectedField = 1;
+        Person person = new Person();
+
+        person.Drive(new SportCar());
     }
 }
