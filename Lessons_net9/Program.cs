@@ -42,7 +42,7 @@ class Point3D : Point2D
 
     public void Print()
     {
-        Console.WriteLine("Name:\t" + Name);
+        Console.WriteLine("Name:\t" + (Name ?? "Unknown"));
         base.Print();
         Console.WriteLine("Z:\t" + Z);
     }
@@ -52,14 +52,35 @@ class Program
 {
     static void Main(string[] args)
     {
-        var p1 = new Point3D(1, 2, 3);
+        object obj = new Point3D(1, 2, 3);
+
+        Point3D point = (Point3D)obj;
+
+        point.Print();
 
         Console.WriteLine();
 
-        var p2 = new Point3D(0, 0, 0, "Zero");
+        // obj = "string";
+        Point2D point2 = obj as Point2D;
+
+        if (point2 != null)
+        {
+            point2.Print();
+        }
 
         Console.WriteLine();
 
-        p2.Print();
+        if (obj is Point2D)
+        {
+            Point2D point3 = (Point2D)obj;
+            point3.Print();
+        }
+
+        Console.WriteLine();
+
+        if (obj is Point2D point4)
+        {
+            point4.Print();
+        }
     }
 }
