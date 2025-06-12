@@ -1,44 +1,54 @@
 ﻿namespace Lessons_net9;
 
-interface IDataProvider
+public interface IWeapon
 {
-    string GetData();
+    void Fire();
 }
 
-interface IDataProcessor
+public interface IThrowingWeapon : IWeapon
 {
-    void ProcessData(IDataProvider dataProvider);
+    void Throw();
 }
 
-class ConsoleDataProcessor : IDataProcessor
+public class Gun : IWeapon 
 {
-    public void ProcessData(IDataProvider dataProvider)
+    public void Fire()
     {
-        Console.WriteLine(dataProvider.GetData());
+        Console.WriteLine($"{GetType().Name} Pif paf");
     }
 }
 
-class DbDataProvider : IDataProvider
+public class LaserGun : IWeapon
 {
-    public string GetData()
+    public void Fire()
     {
-        return "Data from DB";
+        Console.WriteLine($"{GetType().Name} Pew pew");
     }
 }
 
-class FileDataProvider : IDataProvider
+public class Knife : IThrowingWeapon 
 {
-    public string GetData()
+    public void Fire()
     {
-        return "Data from File";
+        Console.WriteLine($"{GetType().Name} Shink shink");
+    }
+
+    public void Throw()
+    {
+        Console.WriteLine($"{GetType().Name} Pshiuuu");
     }
 }
 
-class ApiDataProvider : IDataProvider
-{
-    public string GetData()
+public class Player
+{ 
+    public void Fire(IWeapon weapon)
     {
-        return "Data from API";
+        weapon.Fire();
+    }
+
+    public void Throw(IThrowingWeapon weapon)
+    {
+        weapon.Throw();
     }
 }
 
@@ -46,10 +56,16 @@ internal static class Program
 {
     private static void Main()
     {
-        IDataProcessor dataProcessor = new ConsoleDataProcessor();
+        var p = new Player();
 
-        dataProcessor.ProcessData(new DbDataProvider());
-        dataProcessor.ProcessData(new FileDataProvider());
-        dataProcessor.ProcessData(new ApiDataProvider());
+        IWeapon[] inventory = [new Gun(), new LaserGun(), new Knife()];
+
+        foreach (var item in inventory)
+        {
+            p.Fire(item);
+            Console.WriteLine();
+        }
+        
+        p.Throw(new Knife());
     }
 }
