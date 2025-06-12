@@ -1,51 +1,55 @@
 ﻿namespace Lessons_net9;
 
-class Player
+interface IDataProvider
 {
-    public void Fire(Weapon weapon)
-    {
-        weapon.Fire();
-    }
+    string GetData();
+}
 
-    public void CheckInfo(Weapon weapon)
+interface IDataProcessor
+{
+    void ProcessData(IDataProvider dataProvider);
+}
+
+class ConsoleDataProcessor : IDataProcessor
+{
+    public void ProcessData(IDataProvider dataProvider)
     {
-        weapon.ShowInfo();
+        Console.WriteLine(dataProvider.GetData());
     }
 }
 
-abstract class Weapon
+class DbDataProvider : IDataProvider
 {
-    public abstract int Damage { get; }
-    public abstract void Fire();
-
-    public void ShowInfo()
+    public string GetData()
     {
-        Console.WriteLine($"{GetType().Name} Damage: {Damage}");
+        return "Data from DB";
     }
 }
 
-class Gun : Weapon
+class FileDataProvider : IDataProvider
 {
-    public override int Damage => 10;
-    public override void Fire()
+    public string GetData()
     {
-        Console.WriteLine("Pew pew");
+        return "Data from File";
     }
 }
 
-class Program
+class ApiDataProvider : IDataProvider
 {
-    static void Main(string[] args)
+    public string GetData()
     {
-        Player p = new Player();
+        return "Data from API";
+    }
+}
 
-        Weapon[] inventory = { new Gun() };
+internal static class Program
+{
+    private static void Main()
+    {
+        IDataProcessor dataProcessor = new ConsoleDataProcessor();
 
-        foreach (var item in inventory)
-        {
-            p.CheckInfo(item);
-            p.Fire(item);
-            Console.WriteLine();
-        }
+        dataProcessor.ProcessData(new DbDataProvider());
+        dataProcessor.ProcessData(new FileDataProvider());
+        dataProcessor.ProcessData(new ApiDataProvider());
     }
 }
