@@ -1,33 +1,35 @@
 ﻿namespace Lessons_net9;
 
-class Car
+class Player
 {
-    protected void StartEngine()
+    public void Fire(Weapon weapon)
     {
-        Console.WriteLine("Starting engine");
+        weapon.Fire();
     }
 
-    public virtual void Drive()
+    public void CheckInfo(Weapon weapon)
     {
-        StartEngine();
-        Console.WriteLine("Driving");
-    }
-}
-
-class SportCar : Car
-{
-    public override void Drive()
-    {
-        StartEngine();
-        Console.WriteLine("Driving fast");
+        weapon.ShowInfo();
     }
 }
 
-class Person
+abstract class Weapon
 {
-    public void Drive(Car car)
+    public abstract int Damage { get; }
+    public abstract void Fire();
+
+    public void ShowInfo()
     {
-        car.Drive();
+        Console.WriteLine($"{GetType().Name} Damage: {Damage}");
+    }
+}
+
+class Gun : Weapon
+{
+    public override int Damage => 10;
+    public override void Fire()
+    {
+        Console.WriteLine("Pew pew");
     }
 }
 
@@ -35,8 +37,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        Person person = new Person();
+        Player p = new Player();
 
-        person.Drive(new SportCar());
+        Weapon[] inventory = { new Gun() };
+
+        foreach (var item in inventory)
+        {
+            p.CheckInfo(item);
+            p.Fire(item);
+            Console.WriteLine();
+        }
     }
 }
