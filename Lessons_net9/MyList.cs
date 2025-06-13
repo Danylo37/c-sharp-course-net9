@@ -23,7 +23,10 @@ public class MyList<T> : IEnumerable<T>
 
     public IEnumerator<T> GetEnumerator()
     {
-        return new MyEnumerator<T>(0, Count, _array);
+        for (int i = 0; i < Count; i++)
+        {
+            yield return _array[i];
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()

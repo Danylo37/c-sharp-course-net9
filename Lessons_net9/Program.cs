@@ -10,9 +10,26 @@ internal static class Program
         list.Add(3);
         list.Add(4);
 
-        foreach (var item in list)
+        var enumerator = list.GetEnumerator();
+
+        while (enumerator.MoveNext())
         {
-            Console.Write(item + " ");
+            Console.Write(enumerator.Current + " ");
+        }
+        
+        Console.WriteLine();
+
+        foreach (var number in NumberGenerator().Where(x => x % 2 == 0).Take(10))
+        {
+            Console.WriteLine(number);
+        }
+    }
+
+    private static IEnumerable<int> NumberGenerator()
+    {
+        for (int i = 0;; i++)
+        {
+            yield return i;
         }
     }
 }
