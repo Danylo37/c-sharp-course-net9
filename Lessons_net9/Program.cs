@@ -1,27 +1,14 @@
-﻿using System.Diagnostics;
-
-namespace Lessons_net9;
+﻿namespace Lessons_net9;
 
 internal static class Program 
 {
-    private static IEnumerable<int> GetNumbersWithTimer(TimeSpan timeout)
-    {
-        var stopwatch = Stopwatch.StartNew();
-
-        for (int i = 0;; i++)
-        {
-            if (stopwatch.Elapsed >= timeout)
-            {
-                Console.WriteLine("Timeout reached. Stopping iteration...");
-                yield break;
-            }
-            yield return i;
-        }
-    }
-    
     private static void Main()
     {
-        foreach (var number in GetNumbersWithTimer(TimeSpan.FromSeconds(3)))
+        var numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        
+        var result = numbers.Where(num => num % 2 == 0);
+
+        foreach (var number in result)
         {
             Console.WriteLine(number);
         }
