@@ -1,35 +1,29 @@
-﻿namespace Lessons_net9;
+﻿using System.Diagnostics;
+
+namespace Lessons_net9;
 
 internal static class Program 
 {
-    private static void Main()
+    private static IEnumerable<int> GetNumbersWithTimer(TimeSpan timeout)
     {
-        MyList<int> list = new MyList<int>();
-        list.Add(1);
-        list.Add(2);
-        list.Add(3);
-        list.Add(4);
+        var stopwatch = Stopwatch.StartNew();
 
-        var enumerator = list.GetEnumerator();
-
-        while (enumerator.MoveNext())
-        {
-            Console.Write(enumerator.Current + " ");
-        }
-        
-        Console.WriteLine();
-
-        foreach (var number in NumberGenerator().Where(x => x % 2 == 0).Take(10))
-        {
-            Console.WriteLine(number);
-        }
-    }
-
-    private static IEnumerable<int> NumberGenerator()
-    {
         for (int i = 0;; i++)
         {
+            if (stopwatch.Elapsed >= timeout)
+            {
+                Console.WriteLine("Timeout reached. Stopping iteration...");
+                yield break;
+            }
             yield return i;
+        }
+    }
+    
+    private static void Main()
+    {
+        foreach (var number in GetNumbersWithTimer(TimeSpan.FromSeconds(3)))
+        {
+            Console.WriteLine(number);
         }
     }
 }
